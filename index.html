@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development Showcase - HTML, CSS & JavaScript</title>
+    <style>
+        /* ===== GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+
+        /* ===== FLOATING NAVIGATION ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 1rem;
+        }
+
+        nav li {
+            margin: 0 1rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            padding: 100px 20px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+
+        section:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        h2 {
+            color: #764ba2;
+            font-size: 2rem;
+            margin: 2rem 0 1rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            color: #555;
+            font-size: 1.3rem;
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        /* ===== CODE BLOCKS ===== */
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .code-block code {
+            color: #f8f8f2;
+        }
+
+        .demo-box {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* ===== HERO SECTION ===== */
+        #hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #hero h1 {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        #hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+        }
+
+        /* ===== BEGINNER EXAMPLES ===== */
+        .button-demo {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .button-demo:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+
+        .text-styles-demo span {
+            display: block;
+            margin: 0.5rem 0;
+        }
+
+        /* ===== INTERMEDIATE EXAMPLES ===== */
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin: 1rem;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        /* ===== FORM STYLES ===== */
+        .form-demo input,
+        .form-demo textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-demo input:focus,
+        .form-demo textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* ===== ANIMATION DEMOS ===== */
+        .bounce-box {
+            width: 100px;
+            height: 100px;
+            background: #667eea;
+            margin: 2rem auto;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* ===== ACCORDION ===== */
+        .accordion-item {
+            margin: 1rem 0;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background: #667eea;
+            color: white;
+            padding: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background: #764ba2;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: white;
+        }
+
+        .accordion-content.active {
+            max-height: 500px;
+            padding: 1rem;
+        }
+
+        /* ===== MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #764ba2;
+        }
+
+        /* ===== TABS ===== */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .tab {
+            padding: 1rem 2rem;
+            background: #f8f9fa;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .tab.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 2rem;
+            background: white;
+            border: 2px solid #667eea;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* ===== COUNTER ===== */
+        .counter-display {
+            font-size: 3rem;
+            color: #667eea;
+            font-weight: bold;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .counter-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .counter-btn {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .counter-btn.increment {
+            background: #4caf50;
+            color: white;
+        }
+
+        .counter-btn.decrement {
+            background: #f44336;
+            color: white;
+        }
+
+        .counter-btn.reset {
+            background: #ff9800;
+            color: white;
+        }
+
+        .counter-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav li {
+                margin: 0.5rem 0;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            section {
+                padding: 80px 15px 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- FLOATING NAVIGATION -->
+    <nav id="navbar">
+        <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#intro">Introduction</a></li>
+            <li><a href="#beginner">Beginner</a></li>
+            <li><a href="#novice">Novice</a></li>
+            <li><a href="#intermediate">Intermediate</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="hero">
+        <h1>🌐 Web Development Showcase</h1>
+        <p>Explore the power of HTML, CSS, and JavaScript through interactive examples</p>
+        <p>From beginner-friendly basics to intermediate techniques</p>
+    </section>
+
+    <!-- INTRODUCTION SECTION -->
+    <section id="intro">
+        <h1>What You'll Learn</h1>
+        <p>This interactive showcase demonstrates the building blocks of web development:</p>
+
+        <div class="card-grid">
+            <div class="card">
+                <h3>📄 HTML</h3>
+                <p><strong>HyperText Markup Language</strong> - The structure and content of web pages. HTML uses tags to define elements like headings, paragraphs, images, and links.</p>
+            </div>
+            <div class="card">
+                <h3>🎨 CSS</h3>
+                <p><strong>Cascading Style Sheets</strong> - The visual presentation and layout. CSS controls colors, fonts, spacing, animations, and responsive design.</p>
+            </div>
+            <div class="card">
+                <h3>⚡ JavaScript</h3>
+                <p><strong>The programming language of the web</strong> - Adds interactivity and dynamic behavior. JavaScript responds to user actions and manipulates page content.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEGINNER SECTION -->
+    <section id="beginner">
+        <h1>Beginner Level Examples</h1>
+
+        <!-- Example 1: Text Styling -->
+        <h2>1. Text Styling with HTML & CSS</h2>
+        <p><strong>Concept:</strong> HTML provides the text content, while CSS adds visual styling.</p>
+
+        <div class="demo-box">
+            <div class="text-styles-demo">
+                <span style="font-size: 24px; color: #667eea; font-weight: bold;">Bold and Colored Text</span>
+                <span style="font-style: italic; color: #764ba2;">Italic Text</span>
+                <span style="text-decoration: underline;">Underlined Text</span>
+                <span style="text-transform: uppercase; letter-spacing: 2px;">Uppercase with Spacing</span>
+            </div>
+        </div>
+
+        <div class="code-block"><code>&lt;!-- HTML --&gt;
+&lt;p style="color: blue; font-size: 20px;"&gt;Styled Text&lt;/p&gt;
+
+/* CSS */
+p {
+    color: blue;
+    font-size: 20px;
+    font-weight: bold;
+}</code></div>
+
+        <p><strong>How it works:</strong> The <code>&lt;p&gt;</code> tag creates a paragraph. CSS properties like <code>color</code>, <code>font-size</code>, and <code>font-weight</code> control appearance.</p>
+
+        <!-- Example 2: Simple Button -->
+        <h2>2. Interactive Button with JavaScript</h2>
+        <p><strong>Concept:</strong> JavaScript makes elements respond to user clicks.</p>
+
+        <div class="demo-box">
+            <button class="button-demo" onclick="alert('Hello! You clicked the button! 🎉')">Click Me!</button>
+        </div>
+
+        <div class="code-block"><code>&lt;!-- HTML --&gt;
+&lt;button onclick="showMessage()"&gt;Click Me!&lt;/button&gt;
+
+&lt;script&gt;
+function showMessage() {
+    alert('Hello! You clicked the button!');
+}
+&lt;/script&gt;</code></div>
+
+        <p><strong>How it works:</strong> The <code>onclick</code> attribute calls a JavaScript function when clicked. The <code>alert()</code> function displays a popup message.</p>
+
+        <!-- Example 3: Counter -->
+        <h2>3. Simple Counter</h2>
+        <p><strong>Concept:</strong> JavaScript can store values in variables and update the page dynamically.</p>
+
+        <div class="demo-box">
+            <div class="counter-display" id="counter">0</div>
+            <div class="counter-controls">
+                <button class="counter-btn increment" onclick="incrementCounter()">Add 1 ➕</button>
+                <button class="counter-btn decrement" onclick="decrementCounter()">Subtract 1 ➖</button>
+                <button class="counter-btn reset" onclick="resetCounter()">Reset 🔄</button>
+            </div>
+        </div>
+
+        <div class="code-block"><code>&lt;div id="counter"&gt;0&lt;/div&gt;
+&lt;button onclick="incrementCounter()"&gt;Add 1&lt;/button&gt;
+
+&lt;script&gt;
+let count = 0;
+
+function incrementCounter() {
+    count++;  // Add 1 to count
+    document.getElementById('counter').textContent = count;
+}
+&lt;/script&gt;</code></div>
+
+        <p><strong>How it works:</strong> A variable <code>count</code> stores the number. When clicked, <code>count++</code> increases it by 1. <code>getElementById</code> finds the element, and <code>textContent</code> updates what's displayed.</p>
+    </section>
+
+    <!-- NOVICE SECTION -->
+    <section id="novice">
+        <h1>Novice Level Examples</h1>
+
+        <!-- Example 4: Form Validation -->
+        <h2>4. Form with Validation</h2>
+        <p><strong>Concept:</strong> JavaScript can check user input before submission.</p>
+
+        <div class="demo-box">
+            <div class="form-demo">
+                <form onsubmit="return validateForm(event)">
+                    <input type="text" id="username" placeholder="Enter your name" required>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                    <button type="submit" class="button-demo">Submit Form</button>
+                </form>
+                <p id="form-message" style="margin-top: 1rem; color: #4caf50; font-weight: bold;"></p>
+            </div>
+        </div>
+
+        <div class="code-block"><code>&lt;form onsubmit="return validateForm(event)"&gt;
+    &lt;input type="text" id="username" placeholder="Name" required&gt;
+    &lt;input type="email" id="email" placeholder="Email" required&gt;
+    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+function validateForm(event) {
+    event.preventDefault(); // Prevent page reload
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+
+    if (username && email) {
+        alert('Form submitted successfully!');
+        return true;
+    }
+    return false;
+}
+&lt;/script&gt;</code></div>
+
+        <p><strong>How it works:</strong> <code>event.preventDefault()</code> stops the form from reloading the page. JavaScript checks if fields have values using <code>.value</code>, then provides feedback.</p>
+
+        <!-- Example 5: Progress Bar -->
+        <h2>5. Animated Progress Bar</h2>
+        <p><strong>Concept:</strong> Combine CSS transitions with JavaScript to create smooth animations.</p>
+
+        <div class="demo-box">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress">0%</div>
+            </div>
+            <button class="button-demo" onclick="fillProgress()">Start Progress</button>
+        </div>
+
+        <div class="code-block"><code>&lt;div class="progress-bar"&gt;
+    &lt;div class="progress-fill" id="progress"&gt;0%&lt;/div&gt;
+&lt;/div&gt;
+
+/* CSS */
+.progress-fill {
+    width: 0%;
+    transition: width 0.5s ease;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+&lt;script&gt;
+function fillProgress() {
+    let progress = 0;
+    const interval = setInterval(() =&gt; {
+        progress += 10;
+        document.getElementById('progress').style.width = progress + '%';
+        document.getElementById('progress').textContent = progress + '%';
+        if (progress &gt;= 100) clearInterval(interval);
+    }, 200);
+}
+&lt;/script&gt;</code></div>
+
+        <p><strong>How it works:</strong> <code>setInterval()</code> runs code repeatedly every 200ms. Each time, it increases progress by 10% and updates the bar's width. <code>clearInterval()</code> stops at 100%.</p>
+
+        <!-- Example 6: Accordion -->
+        <h2>6. Collapsible Accordion</h2>
+        <p><strong>Concept:</strong> Show/hide content by toggling CSS classes with JavaScript.</p>
+
+        <div class="demo-box">
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(1)">
+                    📚 What is HTML? (Click to expand)
+                </div>
+                <div class="accordion-content" id="accordion-1">
+                    HTML (HyperText Markup Language) is the standard markup language for creating web pages. It structures content using elements represented by tags.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(2)">
+                    🎨 What is CSS? (Click to expand)
+                </div>
+                <div class="accordion-content" id="accordion-2">
+                    CSS (Cascading Style Sheets) controls the visual presentation of HTML elements, including layout, colors, fonts, and responsive design.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(3)">
+                    ⚡ What is JavaScript? (Click to expand)
+                </div>
+                <div class="accordion-content" id="accordion-3">
+                    JavaScript is a programming language that enables interactive web pages. It can respond to user actions, modify content, and communicate with servers.
+                </div>
+            </div>
+        </div>
+
+        <div class="code-block"><code>&lt;div class="accordion-item"&gt;
+    &lt;div class="accordion-header" onclick="toggleAccordion(1)"&gt;
+        Click to expand
+    &lt;/div&gt;
+    &lt;div class="accordion-content" id="accordion-1"&gt;
+        Hidden content here
+    &lt;/div&gt;
+&lt;/div&gt;
+
+/* CSS */
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+.accordion-content.active {
+    max-height: 500px;
+}
+
+&lt;script&gt;
+function toggleAccordion(num) {
+    const content = document.getElementById('accordion-' + num);
+    content.classList.toggle('active');
+}
+&lt;/script&gt;</code></div>
+
+        <p><strong>How it works:</strong> <code>classList.toggle()</code> adds or removes the 'active' class. CSS uses <code>max-height</code> with <code>transition</code> to animate the expansion smoothly.</p>
+    </section>
+
+    <!-- INTERMEDIATE SECTION -->
+    <section id="intermediate">
+        <h1>Intermediate Level Examples</h1>
+
+        <!-- Example 7: Tabs System -->
+        <h2>7. Tab Navigation System</h2>
+        <p><strong>Concept:</strong> Switch between different content panels without page reload.</p>
+
+        <div class="demo-box">
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab(event, 'tab1')">HTML Basics</button>
+                <button class="tab" onclick="switchTab(event, 'tab2')">CSS Styling</button>
+                <button class="tab" onclick="switchTab(event, 'tab3')">JavaScript Logic</button>
+            </div>
+            <div class="tab-content active" id="tab1">
+                <h3>HTML - The Structure</h3>
+                <p>HTML provides semantic structure using tags like <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;section&gt;</code>, and <code>&lt;footer&gt;</code>. These elements organize content logically.</p>
+            </div>
+            <div class="tab-content" id="tab2">
+                <h3>CSS - The Design</h3>
+                <p>CSS uses selectors to target elements and apply styles. Modern CSS includes Flexbox and Grid for powerful layouts, plus animations and transitions for smooth effects.</p>
+            </div>
+            <div class="tab-content" id="tab3">
+                <h3>JavaScript - The Behavior</h3>
+                <p>JavaScript uses variables, functions, conditionals (if/else), loops, and DOM manipulation to create dynamic experiences. Modern JS includes async/await for handling delays and API calls.</p>
+            </div>
+        </div>
+
+        <div class="code-block"><code>&lt;div class="tabs"&gt;
+    &lt;button class="tab" onclick="switchTab(event, 'tab1')"&gt;Tab 1&lt;/button&gt;
+    &lt;button class="tab" onclick="switchTab(event, 'tab2')"&gt;Tab 2&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="tab-content active" id="tab1"&gt;Content 1&lt;/div&gt;
+&lt;div class="tab-content" id="tab2"&gt;Content 2&lt;/div&gt;
+
+&lt;script&gt;
+function switchTab(event, tabId) {
+    // Hide all content
+    document.querySelectorAll('.tab-content').forEach(content =&gt; {
+        content.classList.remove('active');
+    });
+
+    // Remove active from all tabs
+    document.querySelectorAll('.tab').forEach(tab =&gt; {
+        tab.classList.remove('active');
+    });
+
+    // Show selected content and activate tab
+    document.getElementById(tabId).classList.add('active');
+    event.currentTarget.classList.add('active');
+}
+&lt;/script&gt;</code></div>
+
+        <p><strong>How it works:</strong> <code>querySelectorAll()</code> finds all matching elements. <code>forEach()</code> loops through them. We remove 'active' from everything, then add it to the clicked tab and its content.</p>
+
+        <!-- Example 8: Modal Dialog -->
+        <h2>8. Modal Dialog (Popup)</h2>
+        <p><strong>Concept:</strong> Create overlay popups with dynamic content and smooth animations.</p>
+
+        <div class="demo-box">
+            <button class="button-demo" onclick="openModal()">Open Modal Dialog</button>
+        </div>
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeModal()">&times;</span>
+                <h2>Modal Dialog Example</h2>
+                <p>This is a modal dialog! It overlays the page and can contain any content - forms, images, videos, or information.</p>
+                <p>Modals are useful for:</p>
+                <ul>
+                    <li>Login/signup forms</li>
+                    <li>Confirmations</li>
+                    <li>Image galleries</li>
+                    <li>Important notifications</li>
+                </ul>
+                <button class="button-demo" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+
+        <div class="code-block"><code>&lt;button onclick="openModal()"&gt;Open Modal&lt;/button&gt;
+
+&lt;div id="modal" class="modal"&gt;
+    &lt;div class="modal-content"&gt;
+        &lt;span class="close-modal" onclick="closeModal()"&gt;&times;&lt;/span&gt;
+        &lt;h2&gt;Modal Title&lt;/h2&gt;
+        &lt;p&gt;Modal content here&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+/* CSS */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+}
+.modal.active { display: flex; }
+
+&lt;script&gt;
+function openModal() {
+    document.getElementById('modal').classList.add('active');
+}
+
+function closeModal() {
+    document.getElementById('modal').classList.remove('active');
+}
+&lt;/script&gt;</code></div>
+
+        <p><strong>How it works:</strong> The modal is hidden by default (<code>display: none</code>). <code>position: fixed</code> makes it overlay the page. Adding the 'active' class changes display to 'flex', centering the content.</p>
+
+        <!-- Example 9: Responsive Cards Grid -->
+        <h2>9. Responsive Card Grid</h2>
+        <p><strong>Concept:</strong> CSS Grid creates flexible layouts that adapt to screen size, with hover effects.</p>
+
+        <div class="demo-box">
+            <div class="card-grid">
+                <div class="card">
+                    <h3>🚀 Feature 1</h3>
+                    <p>Responsive design adapts to any screen size automatically.</p>
+                </div>
+                <div class="card">
+                    <h3>⚡ Feature 2</h3>
+                    <p>Smooth animations and transitions enhance user experience.</p>
+                </div>
+                <div class="card">
+                    <h3>🎯 Feature 3</h3>
+                    <p>Interactive elements respond to user actions instantly.</p>
+                </div>
+                <div class="card">
+                    <h3>🔒 Feature 4</h3>
+                    <p>Modern CSS creates professional designs with minimal code.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="code-block"><code>/* CSS Grid Layout */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}</code></div>
+
+        <p><strong>How it works:</strong> <code>display: grid</code> creates a grid layout. <code>repeat(auto-fit, minmax(250px, 1fr))</code> automatically fits cards, making them at least 250px but expanding to fill space. <code>:hover</code> applies styles on mouse over.</p>
+
+        <!-- Example 10: Dynamic List -->
+        <h2>10. Dynamic To-Do List</h2>
+        <p><strong>Concept:</strong> Create, display, and remove items dynamically with JavaScript DOM manipulation.</p>
+
+        <div class="demo-box">
+            <div class="form-demo">
+                <input type="text" id="todo-input" placeholder="Enter a task...">
+                <button class="button-demo" onclick="addTodo()">Add Task ➕</button>
+            </div>
+            <ul id="todo-list" style="list-style: none; padding: 0; margin-top: 1rem;"></ul>
+        </div>
+
+        <div class="code-block"><code>&lt;input type="text" id="todo-input" placeholder="Enter a task"&gt;
+&lt;button onclick="addTodo()"&gt;Add Task&lt;/button&gt;
+&lt;ul id="todo-list"&gt;&lt;/ul&gt;
+
+&lt;script&gt;
+function addTodo() {
+    const input = document.getElementById('todo-input');
+    const todoText = input.value.trim();
+
+    if (todoText === '') {
+        alert('Please enter a task!');
+        return;
+    }
+
+    // Create new list item
+    const li = document.createElement('li');
+    li.textContent = todoText;
+    li.style.cssText = 'padding: 0.8rem; margin: 0.5rem 0; background: #f0f0f0; border-radius: 5px; cursor: pointer;';
+
+    // Remove on click
+    li.onclick = function() {
+        this.remove();
+    };
+
+    // Add to list
+    document.getElementById('todo-list').appendChild(li);
+    input.value = ''; // Clear input
+}
+&lt;/script&gt;</code></div>
+
+        <p><strong>How it works:</strong> <code>document.createElement('li')</code> creates a new element. <code>.textContent</code> sets its text. <code>.style.cssText</code> applies multiple styles. <code>appendChild()</code> adds it to the page. <code>.remove()</code> deletes it.</p>
+
+        <!-- Advanced Tip -->
+        <h2>🎓 Next Steps</h2>
+        <div class="demo-box">
+            <h3>Keep Learning!</h3>
+            <p>You've seen examples from basic to intermediate. Here's what to explore next:</p>
+            <ul style="line-height: 2; font-size: 1.1rem;">
+                <li><strong>APIs:</strong> Fetch data from external sources (weather, news, etc.)</li>
+                <li><strong>Local Storage:</strong> Save data in the browser between sessions</li>
+                <li><strong>CSS Flexbox & Grid:</strong> Master advanced layouts</li>
+                <li><strong>ES6+ JavaScript:</strong> Arrow functions, destructuring, async/await</li>
+                <li><strong>Frameworks:</strong> React, Vue, or Angular for complex applications</li>
+                <li><strong>Accessibility:</strong> Make websites usable for everyone</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Counter functions
+        let count = 0;
+
+        function incrementCounter() {
+            count++;
+            document.getElementById('counter').textContent = count;
+        }
+
+        function decrementCounter() {
+            count--;
+            document.getElementById('counter').textContent = count;
+        }
+
+        function resetCounter() {
+            count = 0;
+            document.getElementById('counter').textContent = count;
+        }
+
+        // Form validation
+        function validateForm(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('form-message');
+
+            if (username && email) {
+                message.textContent = `✓ Success! Welcome, ${username}! We'll contact you at ${email}.`;
+                message.style.color = '#4caf50';
+            } else {
+                message.textContent = '✗ Please fill in all fields.';
+                message.style.color = '#f44336';
+            }
+        }
+
+        // Progress bar
+        function fillProgress() {
+            let progress = 0;
+            const progressBar = document.getElementById('progress');
+            const interval = setInterval(() => {
+                progress += 10;
+                progressBar.style.width = progress + '%';
+                progressBar.textContent = progress + '%';
+                if (progress >= 100) {
+                    clearInterval(interval);
+                }
+            }, 200);
+        }
+
+        // Accordion toggle
+        function toggleAccordion(num) {
+            const content = document.getElementById('accordion-' + num);
+            content.classList.toggle('active');
+        }
+
+        // Tab switching
+        function switchTab(event, tabId) {
+            // Remove active from all content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Add active to selected
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Modal functions
+        function openModal() {
+            document.getElementById('modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // To-Do List
+        function addTodo() {
+            const input = document.getElementById('todo-input');
+            const todoText = input.value.trim();
+
+            if (todoText === '') {
+                alert('Please enter a task!');
+                return;
+            }
+
+            const li = document.createElement('li');
+            li.textContent = todoText;
+            li.style.cssText = 'padding: 0.8rem; margin: 0.5rem 0; background: #f0f0f0; border-radius: 5px; cursor: pointer; transition: all 0.3s ease;';
+
+            li.onmouseover = function() {
+                this.style.background = '#ffcdd2';
+            };
+
+            li.onmouseout = function() {
+                this.style.background = '#f0f0f0';
+            };
+
+            li.onclick = function() {
+                if (confirm('Delete this task?')) {
+                    this.style.opacity = '0';
+                    setTimeout(() => this.remove(), 300);
+                }
+            };
+
+            document.getElementById('todo-list').appendChild(li);
+            input.value = '';
+        }
+
+        // Allow Enter key for todo
+        document.addEventListener('DOMContentLoaded', function() {
+            const todoInput = document.getElementById('todo-input');
+            if (todoInput) {
+                todoInput.addEventListener('keypress', function(event) {
+                    if (event.key === 'Enter') {
+                        addTodo();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
