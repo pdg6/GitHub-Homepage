@@ -110,10 +110,35 @@
             font-family: 'Courier New', monospace;
             font-size: 0.95rem;
             line-height: 1.5;
+            position: relative;
         }
 
         .code-block code {
             color: #f8f8f2;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .copy-button:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+
+        .copy-button.copied {
+            background: #4caf50;
         }
 
         .demo-box {
@@ -404,6 +429,109 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
+        /* ===== BACK TO TOP BUTTON ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.show {
+            display: flex;
+        }
+
+        .back-to-top:hover {
+            background: #764ba2;
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+        }
+
+        /* ===== TOOLTIPS ===== */
+        .tooltip {
+            position: relative;
+            display: inline;
+            border-bottom: 1px dotted #667eea;
+            cursor: help;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 0.75rem;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -125px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .tooltip .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* ===== INTERACTIVE INDICATORS ===== */
+        .interactive-indicator {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            margin-left: 0.5rem;
+            font-weight: bold;
+        }
+
+        /* ===== KEYBOARD HINT ===== */
+        .keyboard-hint {
+            font-size: 0.85rem;
+            color: #666;
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+
+        .keyboard-hint kbd {
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 0.2rem 0.4rem;
+            font-family: monospace;
+            font-style: normal;
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             nav ul {
@@ -482,7 +610,7 @@
             </div>
         </div>
 
-        <div class="code-block"><code>&lt;!-- HTML --&gt;
+        <div class="code-block"><button class="copy-button" onclick="copyCode(this)">Copy</button><code>&lt;!-- HTML --&gt;
 &lt;p style="color: blue; font-size: 20px;"&gt;Styled Text&lt;/p&gt;
 
 /* CSS */
@@ -492,17 +620,17 @@ p {
     font-weight: bold;
 }</code></div>
 
-        <p><strong>How it works:</strong> The <code>&lt;p&gt;</code> tag creates a paragraph. CSS properties like <code>color</code>, <code>font-size</code>, and <code>font-weight</code> control appearance.</p>
+        <p><strong>How it works:</strong> The <code>&lt;p&gt;</code> tag creates a paragraph. <span class="tooltip">CSS<span class="tooltip-text">Cascading Style Sheets - controls how HTML elements look</span></span> properties like <code>color</code>, <code>font-size</code>, and <code>font-weight</code> control appearance.</p>
 
         <!-- Example 2: Simple Button -->
-        <h2>2. Interactive Button with JavaScript</h2>
+        <h2>2. Interactive Button with JavaScript<span class="interactive-indicator">👆 TRY IT</span></h2>
         <p><strong>Concept:</strong> JavaScript makes elements respond to user clicks.</p>
 
         <div class="demo-box">
             <button class="button-demo" onclick="alert('Hello! You clicked the button! 🎉')">Click Me!</button>
         </div>
 
-        <div class="code-block"><code>&lt;!-- HTML --&gt;
+        <div class="code-block"><button class="copy-button" onclick="copyCode(this)">Copy</button><code>&lt;!-- HTML --&gt;
 &lt;button onclick="showMessage()"&gt;Click Me!&lt;/button&gt;
 
 &lt;script&gt;
@@ -514,8 +642,8 @@ function showMessage() {
         <p><strong>How it works:</strong> The <code>onclick</code> attribute calls a JavaScript function when clicked. The <code>alert()</code> function displays a popup message.</p>
 
         <!-- Example 3: Counter -->
-        <h2>3. Simple Counter</h2>
-        <p><strong>Concept:</strong> JavaScript can store values in variables and update the page dynamically.</p>
+        <h2>3. Simple Counter<span class="interactive-indicator">👆 TRY IT</span></h2>
+        <p><strong>Concept:</strong> JavaScript can store values in <span class="tooltip">variables<span class="tooltip-text">A container that stores data like numbers or text</span></span> and update the page dynamically.</p>
 
         <div class="demo-box">
             <div class="counter-display" id="counter">0</div>
@@ -526,7 +654,7 @@ function showMessage() {
             </div>
         </div>
 
-        <div class="code-block"><code>&lt;div id="counter"&gt;0&lt;/div&gt;
+        <div class="code-block"><button class="copy-button" onclick="copyCode(this)">Copy</button><code>&lt;div id="counter"&gt;0&lt;/div&gt;
 &lt;button onclick="incrementCounter()"&gt;Add 1&lt;/button&gt;
 
 &lt;script&gt;
@@ -546,7 +674,7 @@ function incrementCounter() {
         <h1>Novice Level Examples</h1>
 
         <!-- Example 4: Form Validation -->
-        <h2>4. Form with Validation</h2>
+        <h2>4. Form with Validation<span class="interactive-indicator">👆 TRY IT</span></h2>
         <p><strong>Concept:</strong> JavaScript can check user input before submission.</p>
 
         <div class="demo-box">
@@ -556,11 +684,12 @@ function incrementCounter() {
                     <input type="email" id="email" placeholder="Enter your email" required>
                     <button type="submit" class="button-demo">Submit Form</button>
                 </form>
+                <p class="keyboard-hint">💡 Tip: Press <kbd>Tab</kbd> to move between fields, <kbd>Enter</kbd> to submit</p>
                 <p id="form-message" style="margin-top: 1rem; color: #4caf50; font-weight: bold;"></p>
             </div>
         </div>
 
-        <div class="code-block"><code>&lt;form onsubmit="return validateForm(event)"&gt;
+        <div class="code-block"><button class="copy-button" onclick="copyCode(this)">Copy</button><code>&lt;form onsubmit="return validateForm(event)"&gt;
     &lt;input type="text" id="username" placeholder="Name" required&gt;
     &lt;input type="email" id="email" placeholder="Email" required&gt;
     &lt;button type="submit"&gt;Submit&lt;/button&gt;
@@ -583,7 +712,7 @@ function validateForm(event) {
         <p><strong>How it works:</strong> <code>event.preventDefault()</code> stops the form from reloading the page. JavaScript checks if fields have values using <code>.value</code>, then provides feedback.</p>
 
         <!-- Example 5: Progress Bar -->
-        <h2>5. Animated Progress Bar</h2>
+        <h2>5. Animated Progress Bar<span class="interactive-indicator">👆 TRY IT</span></h2>
         <p><strong>Concept:</strong> Combine CSS transitions with JavaScript to create smooth animations.</p>
 
         <div class="demo-box">
@@ -593,7 +722,7 @@ function validateForm(event) {
             <button class="button-demo" onclick="fillProgress()">Start Progress</button>
         </div>
 
-        <div class="code-block"><code>&lt;div class="progress-bar"&gt;
+        <div class="code-block"><button class="copy-button" onclick="copyCode(this)">Copy</button><code>&lt;div class="progress-bar"&gt;
     &lt;div class="progress-fill" id="progress"&gt;0%&lt;/div&gt;
 &lt;/div&gt;
 
@@ -619,8 +748,8 @@ function fillProgress() {
         <p><strong>How it works:</strong> <code>setInterval()</code> runs code repeatedly every 200ms. Each time, it increases progress by 10% and updates the bar's width. <code>clearInterval()</code> stops at 100%.</p>
 
         <!-- Example 6: Accordion -->
-        <h2>6. Collapsible Accordion</h2>
-        <p><strong>Concept:</strong> Show/hide content by toggling CSS classes with JavaScript.</p>
+        <h2>6. Collapsible Accordion<span class="interactive-indicator">👆 TRY IT</span></h2>
+        <p><strong>Concept:</strong> Show/hide content by toggling <span class="tooltip">CSS classes<span class="tooltip-text">A way to apply styles to HTML elements that can be added or removed dynamically</span></span> with JavaScript.</p>
 
         <div class="demo-box">
             <div class="accordion-item">
@@ -649,7 +778,7 @@ function fillProgress() {
             </div>
         </div>
 
-        <div class="code-block"><code>&lt;div class="accordion-item"&gt;
+        <div class="code-block"><button class="copy-button" onclick="copyCode(this)">Copy</button><code>&lt;div class="accordion-item"&gt;
     &lt;div class="accordion-header" onclick="toggleAccordion(1)"&gt;
         Click to expand
     &lt;/div&gt;
@@ -683,7 +812,7 @@ function toggleAccordion(num) {
         <h1>Intermediate Level Examples</h1>
 
         <!-- Example 7: Tabs System -->
-        <h2>7. Tab Navigation System</h2>
+        <h2>7. Tab Navigation System<span class="interactive-indicator">👆 TRY IT</span></h2>
         <p><strong>Concept:</strong> Switch between different content panels without page reload.</p>
 
         <div class="demo-box">
@@ -706,7 +835,7 @@ function toggleAccordion(num) {
             </div>
         </div>
 
-        <div class="code-block"><code>&lt;div class="tabs"&gt;
+        <div class="code-block"><button class="copy-button" onclick="copyCode(this)">Copy</button><code>&lt;div class="tabs"&gt;
     &lt;button class="tab" onclick="switchTab(event, 'tab1')"&gt;Tab 1&lt;/button&gt;
     &lt;button class="tab" onclick="switchTab(event, 'tab2')"&gt;Tab 2&lt;/button&gt;
 &lt;/div&gt;
@@ -734,7 +863,7 @@ function switchTab(event, tabId) {
         <p><strong>How it works:</strong> <code>querySelectorAll()</code> finds all matching elements. <code>forEach()</code> loops through them. We remove 'active' from everything, then add it to the clicked tab and its content.</p>
 
         <!-- Example 8: Modal Dialog -->
-        <h2>8. Modal Dialog (Popup)</h2>
+        <h2>8. Modal Dialog (Popup)<span class="interactive-indicator">👆 TRY IT</span></h2>
         <p><strong>Concept:</strong> Create overlay popups with dynamic content and smooth animations.</p>
 
         <div class="demo-box">
@@ -757,7 +886,7 @@ function switchTab(event, tabId) {
             </div>
         </div>
 
-        <div class="code-block"><code>&lt;button onclick="openModal()"&gt;Open Modal&lt;/button&gt;
+        <div class="code-block"><button class="copy-button" onclick="copyCode(this)">Copy</button><code>&lt;button onclick="openModal()"&gt;Open Modal&lt;/button&gt;
 
 &lt;div id="modal" class="modal"&gt;
     &lt;div class="modal-content"&gt;
@@ -816,7 +945,7 @@ function closeModal() {
             </div>
         </div>
 
-        <div class="code-block"><code>/* CSS Grid Layout */
+        <div class="code-block"><button class="copy-button" onclick="copyCode(this)">Copy</button><code>/* CSS Grid Layout */
 .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -838,18 +967,19 @@ function closeModal() {
         <p><strong>How it works:</strong> <code>display: grid</code> creates a grid layout. <code>repeat(auto-fit, minmax(250px, 1fr))</code> automatically fits cards, making them at least 250px but expanding to fill space. <code>:hover</code> applies styles on mouse over.</p>
 
         <!-- Example 10: Dynamic List -->
-        <h2>10. Dynamic To-Do List</h2>
-        <p><strong>Concept:</strong> Create, display, and remove items dynamically with JavaScript DOM manipulation.</p>
+        <h2>10. Dynamic To-Do List<span class="interactive-indicator">👆 TRY IT</span></h2>
+        <p><strong>Concept:</strong> Create, display, and remove items dynamically with JavaScript <span class="tooltip">DOM manipulation<span class="tooltip-text">DOM = Document Object Model. It's how JavaScript interacts with and changes HTML elements on the page</span></span>.</p>
 
         <div class="demo-box">
             <div class="form-demo">
                 <input type="text" id="todo-input" placeholder="Enter a task...">
                 <button class="button-demo" onclick="addTodo()">Add Task ➕</button>
             </div>
+            <p class="keyboard-hint">💡 Tip: Press <kbd>Enter</kbd> after typing to quickly add tasks</p>
             <ul id="todo-list" style="list-style: none; padding: 0; margin-top: 1rem;"></ul>
         </div>
 
-        <div class="code-block"><code>&lt;input type="text" id="todo-input" placeholder="Enter a task"&gt;
+        <div class="code-block"><button class="copy-button" onclick="copyCode(this)">Copy</button><code>&lt;input type="text" id="todo-input" placeholder="Enter a task"&gt;
 &lt;button onclick="addTodo()"&gt;Add Task&lt;/button&gt;
 &lt;ul id="todo-list"&gt;&lt;/ul&gt;
 
@@ -897,17 +1027,59 @@ function addTodo() {
         </div>
     </section>
 
+    <!-- BACK TO TOP BUTTON -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="Back to top">↑</button>
+
     <!-- JAVASCRIPT -->
     <script>
-        // Navbar scroll effect
+        // Navbar scroll effect & Back to top button
         window.addEventListener('scroll', function() {
             const navbar = document.getElementById('navbar');
+            const backToTop = document.getElementById('backToTop');
+            
             if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
+
+            // Show back to top button after scrolling 300px
+            if (window.scrollY > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
         });
+
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Copy code function
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const code = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(code).then(function() {
+                const originalText = button.textContent;
+                button.textContent = '✓ Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                button.textContent = 'Failed';
+                setTimeout(function() {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
 
         // Counter functions
         let count = 0;
